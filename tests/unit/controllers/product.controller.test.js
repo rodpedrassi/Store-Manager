@@ -6,7 +6,8 @@ chai.use(sinonChai);
 
 const { productController } = require('../../../src/controllers');
 const { productService } = require('../../../src/services');
-const { allProducts } = require('../mocks/products.model.mock');
+const { newProduct } = require('../mocks/newProduct.mock');
+const { allProducts } = require('../mocks/products.mock');
 
 
 
@@ -46,5 +47,22 @@ describe('Teste de unidade do controller de products', function () {
 
     expect(res.status).to.have.been.calledWith(200);
     expect(res.json).to.have.been.calledWith(allProducts[0]);
+  });
+  it('Cadastra um novo produto', async function () {
+    const res = {};
+    const req = {
+      body: newProduct,
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon
+      .stub(productService, 'insert')
+      .resolves({ type: null, message: newProduct });
+
+    await productController.insert(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith(newProduct);
   });
 });

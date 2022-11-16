@@ -13,6 +13,11 @@ const allProducts = [
   },
 ];
 
+const invalidProductName = 'Prod';
+const validProductName = 'Produ';
+
 module.exports = {
   allProducts,
+  invalidProductName,
+  validProductName,
 }
