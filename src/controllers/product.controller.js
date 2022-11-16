@@ -22,7 +22,10 @@ const findById = async (req, res) => {
 
 const insert = async (req, res) => {
   const newProduct = req.body; 
-  const { message } = await productService.insert(newProduct);
+  const { type, message } = await productService.insert(newProduct);
+
+  if (type) return res.status(errorMap.mapError(type)).json({ message });
+  
   return res.status(201).json(message);
 };
 

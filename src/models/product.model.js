@@ -27,10 +27,7 @@ const insert = async (product) => {
     `INSERT INTO products (${columns}) VALUE (${placeholders})`,
     [...Object.values(product)],
   );
-
-  const newProduct = await findById(insertId);
-
-  return newProduct;
+  return insertId;
 };
 
 module.exports = {
