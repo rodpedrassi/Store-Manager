@@ -24,4 +24,10 @@ describe('Teste de unidade do model de products', function () {
     const result = await productModel.insert(newProduct);
     expect(result).to.equal(50);
   });
+  it('Atualiza um produto por id', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+    const result = await productModel.updateById(1, 'Ban Hammer');
+    expect(result.affectedRows).to.equal(1);
+  });
+
 });
