@@ -14,6 +14,40 @@ const salesMock = require('../mocks/sales.mock');
 describe('Teste de unidade de controller de sales', function () {
     
   afterEach(sinon.restore);
+
+  it('Recupera a lista de sales ', async function () {
+    const res = {};
+    const req = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon
+      .stub(salesService, 'findAll')
+      .resolves({ type: null, message: salesMock.findAllSales });
+    
+    await salesController.findAll(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(salesMock.findAllSales);
+  });
+
+  it('Recupera uma sale pelo ID', async function () {
+    const res = {};
+    const req = {
+      params: { id: 1 },
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon
+      .stub(salesService, 'findById')
+      .resolves({ type: null, message: salesMock.findByIdSales });
+
+    await salesController.findById(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(salesMock.findByIdSales);
+  });
     
   it('Cadastra uma nova sales', async function () {
     const res = {};
