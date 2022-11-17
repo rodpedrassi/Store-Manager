@@ -18,7 +18,6 @@ const findAll = async () => {
 const findById = async (id) => {
   const [result] = await connection.execute(
     `SELECT 
-      sp.sale_id AS saleId,
       s.date,
       sp.product_id AS productId,
       sp.quantity
